@@ -13,13 +13,13 @@ import java.util.Collection;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/exam")
+
 
 public class ExamController {
 
     private final ExaminerService examinerService;
 
-    @GetMapping("/get/{amount}")
+    @GetMapping("${application.endpoint.root}/get/{amount}")
 
     public Collection<Question> getQuestions(@PathVariable Integer amount) {
         return examinerService.getQuestions(amount);

@@ -13,7 +13,7 @@ import java.util.Collection;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/exam/java")
+@RequestMapping("${application.endpoint.root}/java")
 
 public class JavaQuestionController {
 
@@ -29,11 +29,6 @@ public class JavaQuestionController {
     @GetMapping("/remove")
     public Question removeQuestion(@RequestParam ("QuestionText") String question, @RequestParam("QuestionAnswer") String answer) {
         return questionService.remove(new Question(question,answer));
-    }
-
-    @GetMapping("/find")
-    public Question findQuestion(@RequestParam ("QuestionText") String question, @RequestParam("QuestionAnswer") String answer) {
-        return questionService.find(new Question(question,answer));
     }
 
 

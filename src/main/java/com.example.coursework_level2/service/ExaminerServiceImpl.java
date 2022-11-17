@@ -12,18 +12,23 @@ import java.util.Set;
 
 public class ExaminerServiceImpl implements ExaminerService {
 
-    private final QuestionService questionService = new JavaQuestionService();
+    private final JavaQuestionService questionService;
 
-    int questionsMaxQty = 5;
+    public ExaminerServiceImpl(JavaQuestionService questionService) {
+        this.questionService = questionService;
+    }
+
 
     @Override
     public Collection<Question> getQuestions(int amount) {
 
+        int totalQuestionsInBase = questionService.getAll().size();
+
+        if (amount > totalQuestionsInBase) {
+            throw new TooManyQuestionsException("Запрошено слишком много вопросов!");
+        }
         Set<Question> questionsForUser = new HashSet<>();
 
-        if (amount > questionsMaxQty) {
-            throw new TooManyQuestionsException("Возможно запросить не более 5 вопросов!");
-        }
         while (questionsForUser.size() <= amount-1) {
             questionsForUser.add(questionService.getRandomQuestion());
 
